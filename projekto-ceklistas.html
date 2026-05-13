@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Laiptų projekto čeklistas</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f5f4f0;
+    color: #1a1a1a;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+  .page { max-width: 680px; margin: 0 auto; }
+  .top-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+  .logo { font-size: 13px; font-weight: 500; color: #888; letter-spacing: 0.08em; text-transform: uppercase; }
+  .header { margin-bottom: 1.5rem; }
+  .header h1 { font-size: 22px; font-weight: 600; color: #111; margin-bottom: 4px; }
+  .header p { font-size: 14px; color: #666; }
+  .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.5rem; }
+  .meta-grid .full { grid-column: 1 / -1; }
+  .meta-grid input {
+    width: 100%; padding: 9px 12px; border: 1px solid #ddd; border-radius: 8px;
+    font-size: 13px; background: #fff; color: #111; outline: none;
+    transition: border-color 0.15s;
+  }
+  .meta-grid input:focus { border-color: #1D9E75; }
+  .meta-grid input::placeholder { color: #aaa; }
+  .progress-row { display: flex; justify-content: space-between; font-size: 12px; color: #888; margin-bottom: 6px; }
+  .progress-wrap { background: #e8e6e0; border-radius: 4px; height: 6px; margin-bottom: 1.5rem; overflow: hidden; }
+  .progress-fill { height: 100%; background: #1D9E75; border-radius: 4px; transition: width 0.3s; width: 0%; }
+  .section { background: #fff; border: 1px solid #e5e3dc; border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
+  .sec-head {
+    display: flex; align-items: center; gap: 10px; padding: 13px 16px;
+    background: #faf9f6; cursor: pointer; user-select: none;
+    border-bottom: 1px solid transparent; transition: border-color 0.15s;
+  }
+  .sec-head:hover { background: #f3f1ec; }
+  .sec-head .ti { font-size: 16px; color: #999; }
+  .sec-title { font-size: 14px; font-weight: 500; flex: 1; color: #111; }
+  .badge {
+    font-size: 11px; padding: 2px 9px; border-radius: 20px; font-weight: 500;
+    background: #f0ede6; color: #999; border: 1px solid #e5e3dc;
+  }
+  .badge.warn { background: #FEF3E2; color: #7A4F0F; border-color: #F5C842; }
+  .badge.done { background: #E6F4EE; color: #1D6B4A; border-color: #5DCAA5; }
+  .arr { font-size: 14px; color: #bbb; transition: transform 0.2s; }
+  .arr.closed { transform: rotate(-90deg); }
+  .sec-body { }
+  .item {
+    display: flex; align-items: flex-start; gap: 12px; padding: 10px 16px;
+    cursor: pointer; border-top: 1px solid #f2f0eb;
+    transition: background 0.1s;
+  }
+  .item:hover { background: #faf9f6; }
+  .item input[type=checkbox] {
+    margin-top: 2px; flex-shrink: 0; width: 15px; height: 15px;
+    accent-color: #1D9E75; cursor: pointer;
+  }
+  .item-label { font-size: 13px; color: #222; line-height: 1.5; }
+  .item-note { font-size: 11px; color: #999; margin-top: 2px; }
+  .item.checked .item-label { color: #aaa; text-decoration: line-through; }
+  .actions { display: flex; gap: 10px; margin-top: 1.5rem; justify-content: flex-end; }
+  .btn {
+    padding: 9px 18px; border-radius: 8px; font-size: 13px; font-weight: 500;
+    cursor: pointer; border: 1px solid #ddd; background: #fff; color: #333;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .btn:hover { background: #f5f4f0; border-color: #ccc; }
+  .btn.primary { background: #111; color: #fff; border-color: #111; }
+  .btn.primary:hover { background: #333; }
+  .complete-banner {
+    display: none; background: #E6F4EE; border: 1px solid #5DCAA5;
+    border-radius: 10px; padding: 12px 16px; margin-bottom: 1rem;
+    font-size: 13px; color: #1D6B4A; font-weight: 500; text-align: center;
+  }
+  @media print {
+    body { background: #fff; padding: 1rem; }
+    .actions { display: none; }
+    .complete-banner { display: none !important; }
+  }
+  @media (max-width: 480px) {
+    .meta-grid { grid-template-columns: 1fr; }
+    .meta-grid .full { grid-column: 1; }
+    .top-bar { flex-direction: column; align-items: flex-start; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="top-bar">
+    <span class="logo">Laiptų projektai</span>
+    <span style="font-size:12px;color:#aaa;" id="today"></span>
+  </div>
+
+  <div class="header">
+    <h1>Projekto patikrinimo čeklistas</h1>
+    <p>Užpildykite prieš pateikiant projektą gamybai</p>
+  </div>
+
+  <div class="meta-grid">
+    <input type="text" placeholder="Projekto Nr." id="projNr" />
+    <input type="text" placeholder="Projektuotojo vardas" id="designer" />
+    <input type="text" placeholder="Objekto adresas" id="address" class="full" />
+    <input type="date" id="projDate" />
+    <input type="text" placeholder="Laiptų tipas (pvz. tiesūs, sukti)" id="stairType" />
+  </div>
+
+  <div class="progress-row">
+    <span id="prog-text">0 iš 20 punktų patikrinta</span>
+    <span id="prog-pct">0%</span>
+  </div>
+  <div class="progress-wrap"><div class="progress-fill" id="prog-fill"></div></div>
+
+  <div class="complete-banner" id="banner">
+    ✓ Visi punktai patikrinti – projektas paruoštas pateikimui
+  </div>
+
+  <!-- SEC 1 -->
+  <div class="section">
+    <div class="sec-head" onclick="toggleSec('s1')">
+      <i class="ti ti-files"></i>
+      <span class="sec-title">1. Failų pateikimas</span>
+      <span class="badge" id="b1">0 / 4</span>
+      <i class="ti ti-chevron-down arr" id="a1"></i>
+    </div>
+    <div id="s1">
+      <div class="item" onclick="chk(this)"><input type="checkbox"><div><div class="item-label">Pateikti brėžiniai PDF formatu</div></div></div>
+      <div class="item" onclick="chk(this)"><input type="checkbox"><div><div class="item-label">Pateikti brėžiniai DWG / CAD formatu</div><div class="item-note">Būtina gamybai</div></div></div>
+      <div class="item" onclick="chk(this)"><input type="checkbox"><div><div class="item-label">Pateiktas 3D modelis (jei buvo sukurtas)</div><div class="item-note">Revit, SolidWorks, STEP ar kitas formatas</div></div></div>
+      <div class="item" onclick="chk(this)"><input type="checkbox"><div><div class="item-label">Failai pavadinti pagal projekto numerį</div><div class="item-note">Pvz.: PRJ-001_planas_v1.pdf</div></div></div>
+    </div>
+  </div>
+
+  <!-- SEC 2 -->
+  <div class="section">
+    <div class="sec-head" onclick="toggleSec('s2')">
+      <i class="ti ti-ruler-2"></i>
+      <span class="sec-title">2. Matmenys ir aukščiai</span>
+      <span class="badge" id="b2">0 / 7</span>
+      <i class="ti ti-chevron-down arr" id="a2"></i>
+    </div>
+    <div id="s2">
+      <div class="item" onclick="chk(this)"><input type="checkbox"><div><div class="item-label">Nurodytas bendras laiptų angos aukštis (H)</div><div class="item-note">Nuo grindų iki grindų</div></div></div>
+      <div class="item" onclick="chk(this)"><input type="checkbox"><div><div class="item-label">Nurodytas laisvasis aukštis po laiptais</div><div class="item-note">Min. 2000 mm pagal normas</div></div></div>
+      <div class="item" onclick="chk(this)"><input type="checkbox"><div><div class="item-label">Pakopos aukštis (r) ir gylis (g) nurodyti</div><div class="item-note">Formulė: 2r + g = 630 mm</div></div></div>
+      <div class="item" onclick="chk(this)"><input type="checkbox"><div><div class="item-label">Nurodytas laiptų tūris (plotis × ilgis)</div></div></div>
+      <div class="item" onclick="chk(this)"><input type="checkbox"><div><div class="item-label">Nurodytas pakopos nosis (overhang), jei taikoma</div></div></div>
+      <div class="item" onclick="chk(this)"><input type="checkbox"><div><div class="item-label">Turėklų aukštis nurodytas</div><div class="item-note">Min. 900 mm gyvenamose, 1100 mm viešose patalpose</div></div></div>
+      <div class="item" onclick="chk(this)"><input type="checkbox"><div><div class="item-label">Visi matmenys sutampa tarp planų ir pjūvių</div></div></div>
+    </div>
+  </div>
+
+  <!-- SEC 3 -->
+  <div class="section">
+    <div class="sec-head" onclick="toggleSec('s3')">
+      <i class="ti ti-info-circle"></i>
+      <span class="sec-title">3. Trūkstama informacija</span>
+      <span class="badge" id="b3">0 / 5</span>
+      <i class="ti ti-chevron-down arr" id="a3"></i>
+    </div>
+    <div id="s3">
+      <div class="item" onclick="chk(this)"><input type="checkbox"><div><div class="item-label">Nurodytos medžiagos kiekvienam elementui</div><div class="item-note">Metalas, mediena, stiklas ir kt.</div></div></div>
+      <div class="item" onclick="chk(this)"><input type="checkbox"><div><div class="item-label">Nurodytas paviršių apdailos tipas</div><div class="item-note">Dažymas, šlifavimas, chromavimas ir kt.</div></div></div>
+      <div class="item" onclick="chk(this)"><input type="checkbox"><div><div class="item-label">Jungties su grindimis / siena detalė parodyta</div></div></div>
+      <div class="item" onclick="chk(this)"><input type="checkbox"><div><div class="item-label">Nurodytas grindų sluoksnių storis</div><div class="item-note">Betono plokštė + danga – įtakoja H matmenį</div></div></div>
+      <div class="item" onclick="chk(this)"><input type="checkbox"><div><div class="item-label">Brėžiniuose yra antraštė su projektuotojo kontaktais</div></div></div>
+    </div>
+  </div>
+
+  <!-- SEC 4 -->
+  <div class="section">
+    <div class="sec-head" onclick="toggleSec('s4')">
+      <i class="ti ti-clipboard-check"></i>
+      <span class="sec-title">4. Galutinis patikrinimas</span>
+      <span class="badge" id="b4">0 / 4</span>
+      <i class="ti ti-chevron-down arr" id="a4"></i>
+    </div>
+    <div id="s4">
+      <div class="item" onclick="chk(this)"><input type="checkbox"><div><div class="item-label">Projektas peržiūrėtas antrą kartą prieš siunčiant</div></div></div>
+      <div class="item" onclick="chk(this)"><input type="checkbox"><div><div class="item-label">Nėra prieštaravimų tarp planų, pjūvių ir 3D</div></div></div>
+      <div class="item" onclick="chk(this)"><input type="checkbox"><div><div class="item-label">Projektuotojas patvirtino dokumentą</div></div></div>
+      <div class="item" onclick="chk(this)"><input type="checkbox"><div><div class="item-label">Visi klausimai su klientu / architektu išspręsti</div></div></div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn" onclick="resetAll()">Išvalyti viską</button>
+    <button class="btn primary" onclick="window.print()">Spausdinti / PDF</button>
+  </div>
+
+</div>
+<script>
+  document.getElementById('today').textContent = new Date().toLocaleDateString('lt-LT', {year:'numeric',month:'long',day:'numeric'});
+
+  const counts = {s1:4, s2:7, s3:5, s4:4};
+  const grand = 20;
+
+  function chk(item) {
+    const cb = item.querySelector('input[type=checkbox]');
+    cb.checked = !cb.checked;
+    item.classList.toggle('checked', cb.checked);
+    update();
+  }
+
+  function update() {
+    const all = document.querySelectorAll('.item input[type=checkbox]');
+    let total = 0;
+    all.forEach(cb => { if(cb.checked) total++; });
+    const pct = Math.round(total / grand * 100);
+    document.getElementById('prog-fill').style.width = pct + '%';
+    document.getElementById('prog-text').textContent = total + ' iš ' + grand + ' punktų patikrinta';
+    document.getElementById('prog-pct').textContent = pct + '%';
+    document.getElementById('banner').style.display = total === grand ? 'block' : 'none';
+    ['s1','s2','s3','s4'].forEach(id => {
+      const items = document.querySelectorAll('#'+id+' .item input[type=checkbox]');
+      let c = 0; items.forEach(cb => { if(cb.checked) c++; });
+      const b = document.getElementById('b'+id.slice(1));
+      b.textContent = c + ' / ' + counts[id];
+      b.className = 'badge' + (c === counts[id] ? ' done' : c > 0 ? ' warn' : '');
+    });
+  }
+
+  function toggleSec(id) {
+    const body = document.getElementById(id);
+    const arr = document.getElementById('a' + id.slice(1));
+    const open = body.style.display !== 'none';
+    body.style.display = open ? 'none' : '';
+    arr.classList.toggle('closed', open);
+  }
+
+  function resetAll() {
+    if(!confirm('Išvalyti visus pažymėjimus?')) return;
+    document.querySelectorAll('.item input[type=checkbox]').forEach(cb => {
+      cb.checked = false;
+      cb.closest('.item').classList.remove('checked');
+    });
+    ['projNr','designer','address','projDate','stairType'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    update();
+  }
+</script>
+</body>
+</html>
