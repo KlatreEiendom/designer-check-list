@@ -100,6 +100,7 @@
   }
   .item:hover { background: #faf9f6; }
   .item-text { padding: 9px 16px; font-size: 13px; color: #222; line-height: 1.45; }
+  .num { font-size: 11px; font-weight: 600; color: #aaa; margin-right: 5px; }
   .item-cell {
     display: flex; align-items: center; justify-content: center;
     padding: 9px 0; border-left: 1px solid #f2f0eb;
@@ -185,7 +186,7 @@
   <!-- BENDRI -->
   <div class="section">
     <div class="sec-head" onclick="toggleSec('bendri')">
-      <span class="sec-title">Bendri</span>
+      <span class="sec-title">1. Bendri</span>
       <span class="badge" id="b-bendri">0 / 9</span>
       <span class="arr" id="a-bendri">▾</span>
     </div>
@@ -196,22 +197,22 @@
         <div class="col-h">Karpytos sijos</div>
         <div class="col-h">Metalo sijos</div>
       </div>
-      <div class="item"><div class="item-text">Matmenys atitinka užsakymą</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">2D turi visus reikalingus matmenis</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Įrašyti kiti objektai (langas, durys, rozetės ir t.t.) su matmenimis</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Lipimo linija 400/R400</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Formulė 600–640 mm</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Galvos aukštis min 2000 mm</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Teisinga projekto teksto informacija</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Statramsčių ilgiai turi būti visi vienodi</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Minimalus 8 mm frezavimas, nuo detalės krašto</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">1.1</span> Matmenys atitinka užsakymą</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">1.2</span> 2D turi visus reikalingus matmenis</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">1.3</span> Įrašyti kiti objektai (langas, durys, rozetės ir t.t.) su matmenimis</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">1.4</span> Lipimo linija 400/R400</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">1.5</span> Formulė 600–640 mm</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">1.6</span> Galvos aukštis min 2000 mm</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">1.7</span> Teisinga projekto teksto informacija</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">1.8</span> Statramsčių ilgiai turi būti visi vienodi</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">1.9</span> Minimalus 8 mm frezavimas, nuo detalės krašto</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
     </div>
   </div>
 
   <!-- BALKONAS -->
   <div class="section">
     <div class="sec-head" onclick="toggleSec('balkonas')">
-      <span class="sec-title">Balkonas</span>
+      <span class="sec-title">2. Balkonas</span>
       <span class="badge" id="b-balkonas">0 / 2</span>
       <span class="arr" id="a-balkonas">▾</span>
     </div>
@@ -222,15 +223,15 @@
         <div class="col-h">Karpytos sijos</div>
         <div class="col-h">Metalo sijos</div>
       </div>
-      <div class="item"><div class="item-text">Tarpiniai stulpai negali išsikišti žemiau lubų</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Statramsčiai turi būti vienas šalia kito posūkyje, kai nėra stulpo</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">2.1</span> Tarpiniai stulpai negali išsikišti žemiau lubų</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">2.2</span> Statramsčiai turi būti vienas šalia kito posūkyje, kai nėra stulpo</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
     </div>
   </div>
 
   <!-- SIENOS PORANKIAI -->
   <div class="section">
     <div class="sec-head" onclick="toggleSec('sienos')">
-      <span class="sec-title">Sienos porankiai</span>
+      <span class="sec-title">3. Sienos porankiai</span>
       <span class="badge" id="b-sienos">0 / 6</span>
       <span class="arr" id="a-sienos">▾</span>
     </div>
@@ -241,19 +242,19 @@
         <div class="col-h">Karpytos sijos</div>
         <div class="col-h">Metalo sijos</div>
       </div>
-      <div class="item"><div class="item-text">Sienos porankis yra 10 mm trumpesnis už sieną</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Nėra horizontaliojo kablio laiptų gale</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Porankiai atitraukti nuo sienos 40 mm</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Sienos porankis viršuje h910 mm nuo grindų</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Pirmo ir trečio maršo sienų porankių „V" laužimas ties stulpu, kai maršo ilgis ≥ 1500 mm</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Porankio aukštis nuo pakopos nosies yra tiksliai arba arti 910 mm</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">3.1</span> Sienos porankis yra 10 mm trumpesnis už sieną</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">3.2</span> Nėra horizontaliojo kablio laiptų gale</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">3.3</span> Porankiai atitraukti nuo sienos 40 mm</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">3.4</span> Sienos porankis viršuje h910 mm nuo grindų</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">3.5</span> Pirmo ir trečio maršo sienų porankių „V" laužimas ties stulpu, kai maršo ilgis ≥ 1500 mm</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">3.6</span> Porankio aukštis nuo pakopos nosies yra tiksliai arba arti 910 mm</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
     </div>
   </div>
 
   <!-- PAKOPOS -->
   <div class="section">
     <div class="sec-head" onclick="toggleSec('pakopos')">
-      <span class="sec-title">Pakopos</span>
+      <span class="sec-title">4. Pakopos</span>
       <span class="badge" id="b-pakopos">0 / 6</span>
       <span class="arr" id="a-pakopos">▾</span>
     </div>
@@ -264,19 +265,19 @@
         <div class="col-h">Karpytos sijos</div>
         <div class="col-h">Metalo sijos</div>
       </div>
-      <div class="item"><div class="item-text">Parašytas vaikų apsaugos aukštis nuo pakopos apačios</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Priešpaskutinė ir paskutinė pakopa pagal taisykles</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Pirmos pakopos nosis – 10 mm, jeigu „hang on" &lt; 80 mm</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Pakopos – ar prailgintos</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">5 mm laisvumas nuo pakopos priešpakopio iki metalo sijos</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Matoma pusė nefrezuota kiaurai</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">4.1</span> Parašytas vaikų apsaugos aukštis nuo pakopos apačios</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">4.2</span> Priešpaskutinė ir paskutinė pakopa pagal taisykles</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">4.3</span> Pirmos pakopos nosis – 10 mm, jeigu „hang on" &lt; 80 mm</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell" style="background:#f5f4f0;">–</div></div>
+      <div class="item"><div class="item-text"><span class="num">4.4</span> Pakopos – ar prailgintos</div><div class="item-cell" style="background:#f5f4f0;">–</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">4.5</span> 5 mm laisvumas nuo pakopos priešpakopio iki metalo sijos</div><div class="item-cell" style="background:#f5f4f0;">–</div><div class="item-cell" style="background:#f5f4f0;">–</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">4.6</span> Matoma pusė nefrezuota kiaurai</div><div class="item-cell" style="background:#f5f4f0;">–</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell" style="background:#f5f4f0;">–</div></div>
     </div>
   </div>
 
   <!-- STULPAI -->
   <div class="section">
     <div class="sec-head" onclick="toggleSec('stulpai')">
-      <span class="sec-title">Stulpai</span>
+      <span class="sec-title">5. Stulpai</span>
       <span class="badge" id="b-stulpai">0 / 8</span>
       <span class="arr" id="a-stulpai">▾</span>
     </div>
@@ -287,21 +288,21 @@
         <div class="col-h">Karpytos sijos</div>
         <div class="col-h">Metalo sijos</div>
       </div>
-      <div class="item"><div class="item-text">Kabinimas ant grindų pagal taisykles</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Viršutinio stulpo apačia lygiai su sija (sijos kampu)</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Stulpai išsikiša 10 mm į išorę (kai šone montuojamas stiklas)</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Stulpe negali būti daugiau nei 4 pakopos (negalioja U formos laiptams)</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Priešpakopis negali ateiti į stulpo kampą</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Stulpe maksimaliai 4 pakopos</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Jeigu pakopos atviros, jos turi apjuosti maksimaliai stulpą iš dviejų pusių</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Jeigu maršo ilgis &gt; 1400 mm, stulpą ilginame į grindis + 20 mm</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">5.1</span> Kabinimas ant grindų pagal taisykles</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">5.2</span> Viršutinio stulpo apačia lygiai su sija (sijos kampu)</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell" style="background:#f5f4f0;">–</div></div>
+      <div class="item"><div class="item-text"><span class="num">5.3</span> Stulpai išsikiša 10 mm į išorę (kai šone montuojamas stiklas)</div><div class="item-cell" style="background:#f5f4f0;">–</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell" style="background:#f5f4f0;">–</div></div>
+      <div class="item"><div class="item-text"><span class="num">5.4</span> Stulpe negali būti daugiau nei 4 pakopos (negalioja U formos laiptams)</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">5.5</span> Priešpakopis negali ateiti į stulpo kampą</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">5.6</span> Stulpe maksimaliai 4 pakopos</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">5.7</span> Jeigu pakopos atviros, jos turi apjuosti maksimaliai stulpą iš dviejų pusių</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">5.8</span> Jeigu maršo ilgis &gt; 1400 mm, stulpą ilginame į grindis + 20 mm</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell" style="background:#f5f4f0;">–</div></div>
     </div>
   </div>
 
   <!-- SIJOS -->
   <div class="section">
     <div class="sec-head" onclick="toggleSec('sijos')">
-      <span class="sec-title">Sijos</span>
+      <span class="sec-title">6. Sijos</span>
       <span class="badge" id="b-sijos">0 / 9</span>
       <span class="arr" id="a-sijos">▾</span>
     </div>
@@ -312,22 +313,22 @@
         <div class="col-h">Karpytos sijos</div>
         <div class="col-h">Metalo sijos</div>
       </div>
-      <div class="item"><div class="item-text">Sieninių sijų sujungimas tarpusavyje pagal taisykles</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Tarpai tarp statramsčių ≤ 100, tvorelės aukštis 910 mm</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Hang on min. 80 mm</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Smailūs galai, kurių kampas yra ≤ 45°, turi turėti bent 10 mm horizontalią dalį</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Karpytos sijos storis pagal taisyklę</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Sijos aukštis nuo pakopos nosies – apie 30 mm</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Nuo sijos apačios iki priešpaskutinės pakopos apačios – 40 mm laiptų gale</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Priešpakopis ir pakopos nosis negali ateiti į sijų susijungimo kampą</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Sijos dalis posūkyje, min. 40 mm storio po kampo nuvertimo</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">6.1</span> Sieninių sijų sujungimas tarpusavyje pagal taisykles</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">6.2</span> Tarpai tarp statramsčių ≤ 100, tvorelės aukštis 910 mm</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">6.3</span> Hang on min. 80 mm</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">6.4</span> Smailūs galai, kurių kampas yra ≤ 45°, turi turėti bent 10 mm horizontalią dalį</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell" style="background:#f5f4f0;">–</div></div>
+      <div class="item"><div class="item-text"><span class="num">6.5</span> Karpytos sijos storis pagal taisyklę</div><div class="item-cell" style="background:#f5f4f0;">–</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell" style="background:#f5f4f0;">–</div></div>
+      <div class="item"><div class="item-text"><span class="num">6.6</span> Sijos aukštis nuo pakopos nosies – apie 30 mm</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell" style="background:#f5f4f0;">–</div></div>
+      <div class="item"><div class="item-text"><span class="num">6.7</span> Nuo sijos apačios iki priešpaskutinės pakopos apačios – 40 mm laiptų gale</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell" style="background:#f5f4f0;">–</div></div>
+      <div class="item"><div class="item-text"><span class="num">6.8</span> Priešpakopis ir pakopos nosis negali ateiti į sijų susijungimo kampą</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell" style="background:#f5f4f0;">–</div></div>
+      <div class="item"><div class="item-text"><span class="num">6.9</span> Sijos dalis posūkyje, min. 40 mm storio po kampo nuvertimo</div><div class="item-cell" style="background:#f5f4f0;">–</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell" style="background:#f5f4f0;">–</div></div>
     </div>
   </div>
 
   <!-- PRIEŠPAKOPIAI -->
   <div class="section">
     <div class="sec-head" onclick="toggleSec('priespakopiai')">
-      <span class="sec-title">Priešpakopiai</span>
+      <span class="sec-title">7. Priešpakopiai</span>
       <span class="badge" id="b-priespakopiai">0 / 2</span>
       <span class="arr" id="a-priespakopiai">▾</span>
     </div>
@@ -338,8 +339,8 @@
         <div class="col-h">Karpytos sijos</div>
         <div class="col-h">Metalo sijos</div>
       </div>
-      <div class="item"><div class="item-text">Teisingi priešpakopių aukščiai (įskaitant įleidimą į pakopą)</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
-      <div class="item"><div class="item-text">Vaikų apsauga – 95 mm aukščio</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">7.1</span> Teisingi priešpakopių aukščiai (įskaitant įleidimą į pakopą)</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell" style="background:#f5f4f0;">–</div></div>
+      <div class="item"><div class="item-text"><span class="num">7.2</span> Vaikų apsauga – 95 mm aukščio</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
     </div>
   </div>
 
