@@ -147,20 +147,16 @@
     <div class="doc-logo">Kla<span>tre</span><br><small style="font-size:10px;font-weight:400;color:#aaa;letter-spacing:0.1em;">ELENDOM</small></div>
     <div class="doc-title">DESIGNER CHECK LIST</div>
     <div style="display:flex;align-items:center;gap:16px;">
-      <div class="doc-number">G1</div>
       <div class="doc-meta">
         <span id="today"></span>
-        <span>REV: R0</span>
-        <span>PAGE 1/1</span>
       </div>
     </div>
   </div>
 
   <!-- META -->
   <div class="meta-grid">
-    <input type="text" placeholder="Projekto Nr." id="projNr" />
+    <input type="text" placeholder="Projekto pavadinimas" id="address" />
     <input type="text" placeholder="Projektuotojo vardas" id="designer" />
-    <input type="text" placeholder="Objekto adresas" id="address" />
   </div>
 
   <!-- TYPE SELECTOR -->
@@ -170,6 +166,15 @@
     <button class="type-btn" onclick="setType('sijos-is-sonu')">Sijos iš šonų</button>
     <button class="type-btn" onclick="setType('karptytos')">Karpytos sijos</button>
     <button class="type-btn" onclick="setType('metalo')">Metalo sijos</button>
+    <span style="margin-left:auto; display:flex; align-items:center; gap:8px;">
+      <span class="type-label">Miestas:</span>
+      <select id="citySelect" style="padding:6px 12px; border-radius:20px; font-size:12px; font-weight:500; border:1px solid #ddd; background:#f5f4f0; color:#555; cursor:pointer; outline:none;">
+        <option value="">– pasirinkti –</option>
+        <option value="BERGEN">BERGEN</option>
+        <option value="OSLO">OSLO</option>
+        <option value="STAVANGER">STAVANGER</option>
+      </select>
+    </span>
   </div>
 
   <!-- PROGRESS -->
