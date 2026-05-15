@@ -144,7 +144,7 @@
 
   <!-- HEADER -->
   <div class="doc-header">
-    <div class="doc-logo">Kla<span>tre</span><br><small style="font-size:10px;font-weight:400;color:#aaa;letter-spacing:0.1em;">ELENDOM</small></div>
+    <img src="logo.png" alt="Klatre eiendom" style="height:48px; object-fit:contain;" />
     <div class="doc-title">DESIGNER CHECK LIST</div>
     <div style="display:flex;align-items:center;gap:16px;">
       <div class="doc-meta">
@@ -166,6 +166,24 @@
     <button class="type-btn" onclick="setType('sijos-is-sonu')">Sijos iš šonų</button>
     <button class="type-btn" onclick="setType('karptytos')">Karpytos sijos</button>
     <button class="type-btn" onclick="setType('metalo')">Metalo sijos</button>
+  </div>
+  <div class="type-selector" style="gap:16px; flex-wrap:wrap;">
+    <span style="display:flex; align-items:center; gap:8px;">
+      <span class="type-label">Balkonas:</span>
+      <button class="type-btn" id="balc-yes" onclick="setBalcony(true)">Taip</button>
+      <button class="type-btn" id="balc-no" onclick="setBalcony(false)">Ne</button>
+    </span>
+    <span style="display:flex; align-items:center; gap:8px;" id="railing-wrap" style="display:none !important;">
+      <span class="type-label">Tvorelės tipas:</span>
+      <select id="railingSelect" style="padding:6px 12px; border-radius:20px; font-size:12px; font-weight:500; border:1px solid #ddd; background:#f5f4f0; color:#555; cursor:pointer; outline:none;">
+        <option value="">– pasirinkti –</option>
+        <option value="1">Nr. 1</option>
+        <option value="2">Nr. 2</option>
+        <option value="3">Nr. 3</option>
+        <option value="4">Nr. 4</option>
+        <option value="5">Nr. 5</option>
+      </select>
+    </span>
     <span style="margin-left:auto; display:flex; align-items:center; gap:8px;">
       <span class="type-label">Miestas:</span>
       <select id="citySelect" style="padding:6px 12px; border-radius:20px; font-size:12px; font-weight:500; border:1px solid #ddd; background:#f5f4f0; color:#555; cursor:pointer; outline:none;">
@@ -357,7 +375,14 @@
 </div>
 
 <script>
-  document.getElementById('today').textContent = new Date().toLocaleDateString('lt-LT', {year:'numeric',month:'2-digit',day:'2-digit'}).replace(/\//g,'.');
+  document.getElementById('railing-wrap').style.display = 'none';
+
+  function setBalcony(val) {
+    document.getElementById('balc-yes').classList.toggle('active', val === true);
+    document.getElementById('balc-no').classList.toggle('active', val === false);
+    document.getElementById('railing-wrap').style.display = val ? 'flex' : 'none';
+    if(!val) document.getElementById('railingSelect').value = '';
+  }
 
   const sections = ['bendri','balkonas','sienos','pakopos','stulpai','sijos','priespakopiai'];
   const secTotals = {bendri:9, balkonas:2, sienos:6, pakopos:6, stulpai:8, sijos:9, priespakopiai:2};
