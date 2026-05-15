@@ -143,14 +143,10 @@
 <div class="page">
 
   <!-- HEADER -->
-  <div class="doc-header">
-    <img src="logo.png" alt="Klatre eiendom" style="height:192px; object-fit:contain;" />
+  <div class="doc-header" style="padding:10px 20px;">
+    <img src="logo.png" alt="Klatre eiendom" style="height:64px; object-fit:contain;" />
     <div class="doc-title">DESIGNER CHECK LIST</div>
-    <div style="display:flex;align-items:center;gap:16px;">
-      <div class="doc-meta">
-        <span id="today"></span>
-      </div>
-    </div>
+    <div style="font-size:13px; color:#888; white-space:nowrap;" id="today"></div>
   </div>
 
   <!-- META -->
@@ -376,6 +372,7 @@
 
 <script>
   document.getElementById('railing-wrap').style.display = 'none';
+  document.getElementById('today').textContent = new Date().toLocaleDateString('lt-LT', {year:'numeric',month:'long',day:'numeric'});
 
   function setBalcony(val) {
     document.getElementById('balc-yes').classList.toggle('active', val === true);
