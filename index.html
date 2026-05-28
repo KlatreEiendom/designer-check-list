@@ -230,8 +230,7 @@
   </div>
 
   <!-- BALKONAS -->
-  <div class="section">
-    <div class="sec-head" onclick="toggleSec('balkonas')">
+  <div class="section" id="sec-balkonas">
       <span class="sec-title">2. Balkonas</span>
       <span class="badge" id="b-balkonas">0 / 2</span>
       <span class="arr" id="a-balkonas">▾</span>
@@ -360,7 +359,7 @@
         <div class="col-h">Metalo sijos</div>
       </div>
       <div class="item"><div class="item-text"><span class="num">7.1</span> Teisingi priešpakopių aukščiai (įskaitant įleidimą į pakopą)</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell" style="background:#f5f4f0;">–</div></div>
-      <div class="item"><div class="item-text"><span class="num">7.2</span> Vaikų apsauga – 95 mm aukščio</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
+      <div class="item"><div class="item-text"><span class="num">7.2</span> Vaikų apsauga – 95 mm tarpas</div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div><div class="item-cell"><input type="checkbox" onchange="upd()"></div></div>
     </div>
   </div>
 
@@ -379,7 +378,14 @@
     document.getElementById('balc-yes').classList.toggle('active', val === true);
     document.getElementById('balc-no').classList.toggle('active', val === false);
     document.getElementById('railing-wrap').style.display = val ? 'flex' : 'none';
-    if(!val) document.getElementById('railingSelect').value = '';
+    document.getElementById('sec-balkonas').style.display = val ? '' : 'none';
+    if(!val) {
+      document.getElementById('railingSelect').value = '';
+      document.querySelectorAll('#balkonas .item-cell input[type=checkbox]').forEach(cb => {
+        cb.checked = false;
+      });
+    }
+    upd();
   }
 
   const sections = ['bendri','balkonas','sienos','pakopos','stulpai','sijos','priespakopiai'];
@@ -393,25 +399,31 @@
     activeType = type;
     document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
     event.target.classList.add('active');
+
+    const gridAll = '1fr 90px 90px 90px';
+    const gridOne = '1fr 90px';
+
+    document.querySelectorAll('.item, .col-headers').forEach(row => {
+      row.style.gridTemplateColumns = type === 'all' ? gridAll : gridOne;
+    });
+
     document.querySelectorAll('.item-cell').forEach((cell, i) => {
+      const col = i % 3;
       if(type === 'all') {
-        cell.classList.remove('hidden');
+        cell.style.display = '';
       } else {
-        const col = i % 3;
-        cell.classList.toggle('hidden', col !== typeMap[type]);
+        cell.style.display = col === typeMap[type] ? '' : 'none';
       }
     });
+
     document.querySelectorAll('.col-headers').forEach(ch => {
       const cols = ch.querySelectorAll('.col-h');
-      if(type === 'all') {
-        cols.forEach(c => c.style.display = '');
-      } else {
-        cols.forEach((c,i) => {
-          if(i === 0) c.style.display = '';
-          else c.style.display = i-1 === typeMap[type] ? '' : 'none';
-        });
-      }
+      cols.forEach((c, i) => {
+        if(i === 0) { c.style.display = ''; return; }
+        c.style.display = type === 'all' ? '' : (i - 1 === typeMap[type] ? '' : 'none');
+      });
     });
+
     upd();
   }
 
