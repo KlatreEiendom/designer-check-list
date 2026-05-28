@@ -709,9 +709,15 @@
   }
 
   function upd() {
-    const all = document.querySelectorAll('.item-cell:not(.hidden) input[type=checkbox]');
+    const all = document.querySelectorAll('.item-cell input[type=checkbox]');
     let total = 0, checked = 0;
-    all.forEach(cb => { total++; if(cb.checked) checked++; });
+    all.forEach(cb => {
+      const cell = cb.closest('.item-cell');
+      if(cell && cell.style.display === 'none') return;
+      if(cb.disabled) return;
+      total++;
+      if(cb.checked) checked++;
+    });
     const pct = total > 0 ? Math.round(checked / total * 100) : 0;
     document.getElementById('prog-fill').style.width = pct + '%';
     document.getElementById('prog-text').textContent = checked + ' iš ' + total + ' punktų patikrinta';
@@ -719,12 +725,22 @@
     document.getElementById('banner').style.display = (checked === total && total > 0) ? 'block' : 'none';
 
     sections.forEach(id => {
-      const cells = document.querySelectorAll('#'+id+' .item-cell:not(.hidden) input[type=checkbox]');
+      const sec = document.getElementById(id);
+      if(!sec) return;
+      const cells = sec.querySelectorAll('.item-cell input[type=checkbox]');
       let c = 0, t = 0;
-      cells.forEach(cb => { t++; if(cb.checked) c++; });
+      cells.forEach(cb => {
+        const cell = cb.closest('.item-cell');
+        if(cell && cell.style.display === 'none') return;
+        if(cb.disabled) return;
+        t++;
+        if(cb.checked) c++;
+      });
       const b = document.getElementById('b-'+id);
-      b.textContent = c + ' / ' + t;
-      b.className = 'badge' + (c === t && t > 0 ? ' done' : c > 0 ? ' warn' : '');
+      if(b) {
+        b.textContent = c + ' / ' + t;
+        b.className = 'badge' + (c === t && t > 0 ? ' done' : c > 0 ? ' warn' : '');
+      }
     });
   }
 
