@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Designer Check List – G1</title>
+<title>Designer Check List</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -152,8 +152,10 @@
   .btn.primary:hover { background: #333; }
 
   @media print {
-    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-    body { background: #fff !important; padding: 0.5rem; font-size: 11px; }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; font-weight: normal !important; }
+    h1, h2, h3, .sec-title, .doc-title, .col-h, .num, b, strong { font-weight: 600 !important; }
+    .badge { font-weight: 500 !important; }
+    body { background: #fff !important; padding: 0.5rem; font-size: 11px; -webkit-font-smoothing: antialiased; }
     .page { max-width: 100%; }
     .actions, .type-selector { display: none !important; }
     .item-cell.hidden { display: none !important; }
