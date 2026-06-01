@@ -831,6 +831,12 @@
   // Auto-save every 5 seconds
   setInterval(() => { if(currentProjectId) saveCurrentProject(); }, 5000);
 
+  const sections = ['bendri','balkonas','sienos','pakopos','stulpai','sijos','priespakopiai'];
+  const secTotals = {bendri:9, balkonas:2, sienos:6, pakopos:6, stulpai:8, sijos:9, priespakopiai:2};
+  const typeMap = {'sijos-is-sonu':0, 'karptytos':1, 'metalo':2};
+  let activeType = null;
+  let activePurpose = null;
+
   function setTypeById(type) {
     activeType = type;
     document.querySelectorAll('.type-btn').forEach(b => {
@@ -860,12 +866,7 @@
   document.getElementById('railing-wrap') && (document.getElementById('railing-wrap').style.display='none');
   renderProjectList();
 
-  const sections = ['bendri','balkonas','sienos','pakopos','stulpai','sijos','priespakopiai'];
-  const secTotals = {bendri:9, balkonas:2, sienos:6, pakopos:6, stulpai:8, sijos:9, priespakopiai:2};
-
   // col index: 0=sijos-is-sonu, 1=karptytos, 2=metalo
-  const typeMap = {'sijos-is-sonu':0, 'karptytos':1, 'metalo':2};
-  let activeType = null;
 
   // On load: disable all checkboxes until type is selected
   function initDisabled() {
@@ -977,8 +978,6 @@
     arr.classList.toggle('closed', open);
   }
 
-  let activePurpose = null;
-
   function setPurpose(val) {
     activePurpose = val;
     document.getElementById('purpose-approval').classList.toggle('active', val === 'approval');
@@ -1009,6 +1008,10 @@
   }
 
   document.getElementById('citySelect').addEventListener('change', updateSummary);
+
+  window.onbeforeprint = function() {
+    updateSummary();
+  };
 
   function resetAll() {
     if(!confirm('Išvalyti visus pažymėjimus ir grįžti į projektų sąrašą?')) return;
