@@ -996,15 +996,15 @@
   function updateSummary() {
     const typeLabels = {'sijos-is-sonu':'Sijos iš šonų', 'karptytos':'Karpytos sijos', 'metalo':'Metalo sijos'};
     const purposeLabels = {'approval':'Projekto tvirtinimas', 'production':'Gamyba'};
-    document.getElementById('sum-project').textContent = document.getElementById('address').value || '–';
-    document.getElementById('sum-designer').textContent = document.getElementById('designer').value || '–';
-    document.getElementById('sig-designer-name').textContent = document.getElementById('designer').value || '–';
-    document.getElementById('sum-city').textContent = document.getElementById('citySelect').value || '–';
-    document.getElementById('sum-type').textContent = activeType ? typeLabels[activeType] : '–';
-    document.getElementById('sum-purpose').textContent = activePurpose ? purposeLabels[activePurpose] : '–';
+    const set = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
+    set('sum-project', document.getElementById('address').value || '–');
+    set('sum-designer', document.getElementById('designer').value || '–');
+    set('sum-city', document.getElementById('citySelect').value || '–');
+    set('sum-type', activeType ? typeLabels[activeType] : '–');
+    set('sum-purpose', activePurpose ? purposeLabels[activePurpose] : '–');
     const balcYes = document.getElementById('balc-yes').classList.contains('active');
-    const balcNo = document.getElementById('balc-no').classList.contains('active');
-    document.getElementById('sum-balcony').textContent = balcYes ? 'Taip' : balcNo ? 'Ne' : '–';
+    const balcNo  = document.getElementById('balc-no').classList.contains('active');
+    set('sum-balcony', balcYes ? 'Taip' : balcNo ? 'Ne' : '–');
   }
 
   document.getElementById('citySelect').addEventListener('change', updateSummary);
