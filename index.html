@@ -157,10 +157,12 @@
     .badge { font-weight: 500 !important; }
     body { background: #fff !important; padding: 0.5rem; font-size: 11px; -webkit-font-smoothing: antialiased; }
     .page { max-width: 100%; }
-    .actions, .type-selector { display: none !important; }
-    .item-cell.hidden { display: none !important; }
+    .actions, .type-selector, .meta-grid, .progress-row, .progress-wrap, .complete-banner { display: none !important; }
+    .print-summary-hide { display: none !important; }
+    #print-summary { display: block !important; }
     .comment-btn { display: none !important; }
-    .comment-row { display: none !important; }
+    .comment-row { display: block !important; }
+    .comment-row textarea { display: block !important; background: #fafaf7 !important; border: 1px solid #ddd !important; font-size: 11px !important; color: #333 !important; }
     .section { break-inside: avoid; border: 1px solid #ccc !important; }
     .sec-head { background: #f0f0f0 !important; }
     .item-wrap { break-inside: avoid; }
@@ -170,8 +172,6 @@
     .badge.done { background: #d4edda !important; color: #155724 !important; }
     .badge.warn { background: #fff3cd !important; color: #856404 !important; }
     .doc-header { border: 1px solid #ccc !important; }
-    .progress-wrap { background: #eee !important; }
-    .progress-fill { background: #1D9E75 !important; }
     input[type=checkbox] { accent-color: #1D9E75 !important; }
     .num { color: #999 !important; }
     .item-text { color: #111 !important; }
@@ -185,7 +185,24 @@
 <body>
 <div class="page">
 
-  <!-- HEADER -->
+  <!-- PROJECT LIST -->
+  <div id="project-list-view">
+    <div style="background:#fff; border:1px solid #e5e3dc; border-radius:12px; padding:20px; margin-bottom:0;">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+        <div>
+          <div style="font-size:16px; font-weight:500; color:#111;">Projektai</div>
+          <div style="font-size:12px; color:#888; margin-top:2px;">Pasirinkite projektą arba sukurkite naują</div>
+        </div>
+        <button onclick="newProject()" style="padding:8px 16px; background:#111; color:#fff; border:none; border-radius:8px; font-size:13px; font-weight:500; cursor:pointer;">+ Naujas projektas</button>
+      </div>
+      <div id="projects-container">
+        <div style="text-align:center; padding:32px; color:#aaa; font-size:13px;">Dar nėra projektų</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECKLIST VIEW -->
+  <div id="checklist-view" style="display:none;">
   <div class="doc-header" style="padding:10px 20px;">
     <img src="logo.png" alt="Klatre eiendom" style="height:100%; max-height:70px; width:auto; object-fit:contain; object-position:left;" />
     <div class="doc-title">DESIGNER CHECK LIST</div>
@@ -194,8 +211,20 @@
 
   <!-- META -->
   <div class="meta-grid">
-    <input type="text" placeholder="Projekto pavadinimas" id="address" />
-    <input type="text" placeholder="Projektuotojo vardas" id="designer" />
+    <input type="text" placeholder="Projekto pavadinimas" id="address" oninput="updateSummary()" />
+    <input type="text" placeholder="Projektuotojo vardas" id="designer" oninput="updateSummary()" />
+  </div>
+
+  <!-- PRINT SUMMARY (slepiama ekrane, matoma PDF) -->
+  <div id="print-summary" style="display:none; background:#f7f6f2; border:1px solid #e5e3dc; border-radius:10px; padding:12px 16px; margin-bottom:14px;">
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+      <div><div style="font-size:10px; color:#888; margin-bottom:2px;">Projekto pavadinimas</div><div style="font-size:12px; font-weight:500;" id="sum-project">–</div></div>
+      <div><div style="font-size:10px; color:#888; margin-bottom:2px;">Projektuotojas</div><div style="font-size:12px; font-weight:500;" id="sum-designer">–</div></div>
+      <div><div style="font-size:10px; color:#888; margin-bottom:2px;">Miestas</div><div style="font-size:12px; font-weight:500;" id="sum-city">–</div></div>
+      <div><div style="font-size:10px; color:#888; margin-bottom:2px;">Laiptų tipas</div><div style="font-size:12px; font-weight:500;" id="sum-type">–</div></div>
+      <div><div style="font-size:10px; color:#888; margin-bottom:2px;">Tikrinimo tikslas</div><div style="font-size:12px; font-weight:500;" id="sum-purpose">–</div></div>
+      <div><div style="font-size:10px; color:#888; margin-bottom:2px;">Balkonas</div><div style="font-size:12px; font-weight:500;" id="sum-balcony">–</div></div>
+    </div>
   </div>
 
   <!-- TYPE SELECTOR -->
@@ -652,26 +681,171 @@
   </div>
 
   <div class="actions">
+    <button class="btn" onclick="backToList()">← Projektų sąrašas</button>
     <button class="btn" onclick="resetAll()">Išvalyti viską</button>
     <button class="btn primary" onclick="window.print()">Spausdinti / PDF</button>
   </div>
 
-</div>
+</div><!-- end checklist-view -->
+
+</div><!-- end page -->
 
 <script>
-  document.getElementById('railing-wrap') && (document.getElementById('railing-wrap').style.display = 'none');
+  // ── PROJECTS localStorage ─────────────────────────────
+  let currentProjectId = null;
 
-  function setPurpose(val) {
-    document.getElementById('purpose-approval').classList.toggle('active', val === 'approval');
-    document.getElementById('purpose-production').classList.toggle('active', val === 'production');
+  function getProjects() {
+    return JSON.parse(localStorage.getItem('klatre_projects') || '{}');
   }
 
-  function setBalcony(val) {
-    document.getElementById('balc-yes').classList.toggle('active', val === true);
-    document.getElementById('balc-no').classList.toggle('active', val === false);
-    document.getElementById('sec-balkonas').style.display = val ? '' : 'none';
+  function saveProjects(projects) {
+    localStorage.setItem('klatre_projects', JSON.stringify(projects));
+  }
+
+  function renderProjectList() {
+    const projects = getProjects();
+    const container = document.getElementById('projects-container');
+    const keys = Object.keys(projects);
+    if(keys.length === 0) {
+      container.innerHTML = '<div style="text-align:center; padding:32px; color:#aaa; font-size:13px;">Dar nėra projektų</div>';
+      return;
+    }
+    container.innerHTML = keys.map(id => {
+      const p = projects[id];
+      const checked = (p.checkboxes || []).filter(Boolean).length;
+      const total = (p.checkboxes || []).length;
+      const pct = total > 0 ? Math.round(checked/total*100) : 0;
+      const date = new Date(p.updatedAt || p.createdAt).toLocaleDateString('lt-LT');
+      return `<div onclick="openProject('${id}')" style="display:flex; align-items:center; gap:12px; padding:12px 14px; border:1px solid #e5e3dc; border-radius:10px; margin-bottom:8px; cursor:pointer; background:#fff; transition:background 0.1s;" onmouseover="this.style.background='#faf9f6'" onmouseout="this.style.background='#fff'">
+        <div style="flex:1;">
+          <div style="font-size:14px; font-weight:500; color:#111;">${p.name || 'Nepavadintas'}</div>
+          <div style="font-size:12px; color:#888; margin-top:2px;">${p.city || ''} ${p.stairType ? '· '+p.stairType : ''} · ${date}</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:12px; font-weight:500; color:${pct===100?'#1D9E75':'#888'};">${pct}%</div>
+          <div style="font-size:11px; color:#aaa;">${checked}/${total}</div>
+        </div>
+        <button onclick="event.stopPropagation(); deleteProject('${id}')" style="background:none; border:none; color:#ccc; cursor:pointer; font-size:16px; padding:4px 6px;" title="Ištrinti">✕</button>
+      </div>`;
+    }).join('');
+  }
+
+  function newProject() {
+    const name = prompt('Projekto pavadinimas:');
+    if(!name) return;
+    const id = 'proj_' + Date.now();
+    const projects = getProjects();
+    projects[id] = { name, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
+    saveProjects(projects);
+    openProject(id);
+  }
+
+  function deleteProject(id) {
+    if(!confirm('Ištrinti šį projektą?')) return;
+    const projects = getProjects();
+    delete projects[id];
+    saveProjects(projects);
+    renderProjectList();
+  }
+
+  function openProject(id) {
+    currentProjectId = id;
+    document.getElementById('project-list-view').style.display = 'none';
+    document.getElementById('checklist-view').style.display = '';
+    const projects = getProjects();
+    const p = projects[id] || {};
+    // Restore fields
+    document.getElementById('address').value = p.name || '';
+    document.getElementById('designer').value = p.designer || '';
+    document.getElementById('citySelect').value = p.city || '';
+    initDisabled();
+    // Restore type
+    if(p.stairType) {
+      setTypeById(p.stairType);
+    }
+    // Restore purpose
+    if(p.purpose) {
+      activePurpose = p.purpose;
+      document.getElementById('purpose-approval').classList.toggle('active', p.purpose === 'approval');
+      document.getElementById('purpose-production').classList.toggle('active', p.purpose === 'production');
+    }
+    // Restore balcony
+    if(p.balcony !== undefined) {
+      setBalconyById(p.balcony);
+    }
+    // Restore checkboxes
+    const cbs = document.querySelectorAll('.item-cell input[type=checkbox]');
+    (p.checkboxes || []).forEach((val, i) => { if(cbs[i]) cbs[i].checked = val; });
+    // Restore comments
+    const tas = document.querySelectorAll('.comment-row textarea');
+    (p.comments || []).forEach((val, i) => {
+      if(tas[i] && val) {
+        tas[i].value = val;
+        tas[i].closest('.comment-row').style.display = 'block';
+        const btn = tas[i].closest('.item-wrap').querySelector('.comment-btn');
+        if(btn) btn.textContent = '✕';
+      }
+    });
+    updateSummary();
     upd();
   }
+
+  function backToList() {
+    saveCurrentProject();
+    document.getElementById('checklist-view').style.display = 'none';
+    document.getElementById('project-list-view').style.display = '';
+    renderProjectList();
+  }
+
+  function saveCurrentProject() {
+    if(!currentProjectId) return;
+    const projects = getProjects();
+    const p = projects[currentProjectId] || {};
+    p.name = document.getElementById('address').value || p.name;
+    p.designer = document.getElementById('designer').value;
+    p.city = document.getElementById('citySelect').value;
+    p.stairType = activeType;
+    p.purpose = activePurpose;
+    p.balcony = document.getElementById('balc-yes').classList.contains('active') ? true
+               : document.getElementById('balc-no').classList.contains('active') ? false : undefined;
+    p.checkboxes = Array.from(document.querySelectorAll('.item-cell input[type=checkbox]')).map(cb => cb.checked);
+    p.comments = Array.from(document.querySelectorAll('.comment-row textarea')).map(t => t.value);
+    p.updatedAt = new Date().toISOString();
+    projects[currentProjectId] = p;
+    saveProjects(projects);
+  }
+
+  // Auto-save every 5 seconds
+  setInterval(() => { if(currentProjectId) saveCurrentProject(); }, 5000);
+
+  function setTypeById(type) {
+    activeType = type;
+    document.querySelectorAll('.type-btn').forEach(b => {
+      const label = b.textContent.trim();
+      const map = {'sijos-is-sonu':'Sijos iš šonų','karptytos':'Karpytos sijos','metalo':'Metalo sijos'};
+      b.classList.toggle('active', map[type] === label);
+    });
+    document.querySelectorAll('.item').forEach(row => { row.style.gridTemplateColumns = '1fr 90px'; });
+    document.querySelectorAll('.col-headers').forEach(row => { row.style.gridTemplateColumns = '1fr 90px'; });
+    const typeMap2 = {'sijos-is-sonu':0,'karptytos':1,'metalo':2};
+    document.querySelectorAll('.item-wrap').forEach(wrap => {
+      wrap.querySelectorAll('.item-cell').forEach((cell, i) => {
+        if(i === typeMap2[type]) { cell.style.display=''; cell.style.opacity='1'; cell.style.pointerEvents=''; const cb=cell.querySelector('input'); if(cb) cb.disabled=false; }
+        else { cell.style.display='none'; }
+      });
+    });
+    document.querySelectorAll('.col-headers .col-h').forEach((c,i) => { if(i===0){c.style.display='';return;} c.style.display=i-1===typeMap2[type]?'':'none'; });
+  }
+
+  function setBalconyById(val) {
+    document.getElementById('balc-yes').classList.toggle('active', val===true);
+    document.getElementById('balc-no').classList.toggle('active', val===false);
+    document.getElementById('sec-balkonas').style.display = val ? '' : 'none';
+  }
+
+  // Init
+  document.getElementById('railing-wrap') && (document.getElementById('railing-wrap').style.display='none');
+  renderProjectList();
 
   const sections = ['bendri','balkonas','sienos','pakopos','stulpai','sijos','priespakopiai'];
   const secTotals = {bendri:9, balkonas:2, sienos:6, pakopos:6, stulpai:8, sijos:9, priespakopiai:2};
@@ -726,6 +900,7 @@
     });
 
     upd();
+    updateSummary();
   }
 
   function upd() {
@@ -781,8 +956,41 @@
     arr.classList.toggle('closed', open);
   }
 
+  let activePurpose = null;
+
+  function setPurpose(val) {
+    activePurpose = val;
+    document.getElementById('purpose-approval').classList.toggle('active', val === 'approval');
+    document.getElementById('purpose-production').classList.toggle('active', val === 'production');
+    updateSummary();
+  }
+
+  function setBalcony(val) {
+    document.getElementById('balc-yes').classList.toggle('active', val === true);
+    document.getElementById('balc-no').classList.toggle('active', val === false);
+    document.getElementById('sec-balkonas').style.display = val ? '' : 'none';
+    updateSummary();
+    upd();
+  }
+
+  function updateSummary() {
+    const typeLabels = {'sijos-is-sonu':'Sijos iš šonų', 'karptytos':'Karpytos sijos', 'metalo':'Metalo sijos'};
+    const purposeLabels = {'approval':'Projekto tvirtinimas', 'production':'Gamyba'};
+    document.getElementById('sum-project').textContent = document.getElementById('address').value || '–';
+    document.getElementById('sum-designer').textContent = document.getElementById('designer').value || '–';
+    document.getElementById('sig-designer-name').textContent = document.getElementById('designer').value || '–';
+    document.getElementById('sum-city').textContent = document.getElementById('citySelect').value || '–';
+    document.getElementById('sum-type').textContent = activeType ? typeLabels[activeType] : '–';
+    document.getElementById('sum-purpose').textContent = activePurpose ? purposeLabels[activePurpose] : '–';
+    const balcYes = document.getElementById('balc-yes').classList.contains('active');
+    const balcNo = document.getElementById('balc-no').classList.contains('active');
+    document.getElementById('sum-balcony').textContent = balcYes ? 'Taip' : balcNo ? 'Ne' : '–';
+  }
+
+  document.getElementById('citySelect').addEventListener('change', updateSummary);
+
   function resetAll() {
-    if(!confirm('Išvalyti visus pažymėjimus?')) return;
+    if(!confirm('Išvalyti visus pažymėjimus ir grįžti į projektų sąrašą?')) return;
     document.querySelectorAll('.item-cell input[type=checkbox]').forEach(cb => { cb.checked = false; cb.disabled = true; });
     document.querySelectorAll('.comment-row').forEach(r => { r.style.display = 'none'; });
     document.querySelectorAll('.comment-row textarea').forEach(t => { t.value = ''; });
@@ -793,7 +1001,9 @@
     document.querySelectorAll('.col-headers .col-h').forEach(c => { c.style.display = ''; });
     document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
     activeType = null;
+    activePurpose = null;
     ['designer','address'].forEach(id => { document.getElementById(id).value = ''; });
+    updateSummary();
     upd();
   }
 </script>
