@@ -840,20 +840,23 @@
   function setTypeById(type) {
     activeType = type;
     document.querySelectorAll('.type-btn').forEach(b => {
-      const label = b.textContent.trim();
       const map = {'sijos-is-sonu':'Sijos iš šonų','karptytos':'Karpytos sijos','metalo':'Metalo sijos'};
-      b.classList.toggle('active', map[type] === label);
+      b.classList.toggle('active', map[type] === b.textContent.trim());
     });
     document.querySelectorAll('.item').forEach(row => { row.style.gridTemplateColumns = '1fr 90px'; });
     document.querySelectorAll('.col-headers').forEach(row => { row.style.gridTemplateColumns = '1fr 90px'; });
-    const typeMap2 = {'sijos-is-sonu':0,'karptytos':1,'metalo':2};
     document.querySelectorAll('.item-wrap').forEach(wrap => {
-      wrap.querySelectorAll('.item-cell').forEach((cell, i) => {
-        if(i === typeMap2[type]) { cell.style.display=''; cell.style.opacity='1'; cell.style.pointerEvents=''; const cb=cell.querySelector('input'); if(cb) cb.disabled=false; }
+      const cells = wrap.querySelectorAll('.item-cell');
+      const targetCell = cells[typeMap[type]];
+      const isDash = targetCell && !targetCell.querySelector('input[type=checkbox]');
+      if(isDash) { wrap.style.display = 'none'; return; }
+      wrap.style.display = '';
+      cells.forEach((cell, i) => {
+        if(i === typeMap[type]) { cell.style.display=''; cell.style.opacity='1'; cell.style.pointerEvents=''; const cb=cell.querySelector('input'); if(cb) cb.disabled=false; }
         else { cell.style.display='none'; }
       });
     });
-    document.querySelectorAll('.col-headers .col-h').forEach((c,i) => { if(i===0){c.style.display='';return;} c.style.display=i-1===typeMap2[type]?'':'none'; });
+    document.querySelectorAll('.col-headers .col-h').forEach((c,i) => { if(i===0){c.style.display='';return;} c.style.display=i-1===typeMap[type]?'':'none'; });
   }
 
   function setBalconyById(val) {
@@ -893,8 +896,18 @@
     });
 
     // Show/hide cells and enable only the right column
+    // Also hide entire row if selected column is a dash
     document.querySelectorAll('.item-wrap').forEach(wrap => {
       const cells = wrap.querySelectorAll('.item-cell');
+      const targetCell = cells[typeMap[type]];
+      const isDash = targetCell && !targetCell.querySelector('input[type=checkbox]');
+
+      if(isDash) {
+        wrap.style.display = 'none';
+        return;
+      }
+
+      wrap.style.display = '';
       cells.forEach((cell, i) => {
         if (i === typeMap[type]) {
           cell.style.display = '';
