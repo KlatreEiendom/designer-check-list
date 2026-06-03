@@ -1006,6 +1006,9 @@
       upd();
     }
   });
+
+  document.addEventListener('input', function(e) {
+    if(e.target.tagName === 'TEXTAREA') {
       const row = e.target.closest('.comment-row');
       if(row) row.classList.toggle('has-comment', e.target.value.trim() !== '');
     }
