@@ -106,6 +106,8 @@
   .item-wrap.production-missing { background: #fff5f5 !important; border-left: 3px solid #e74c3c; }
   .item-wrap.production-missing .item-text { color: #c0392b !important; }
   .item-wrap.production-missing .num { color: #e74c3c !important; }
+  .item-wrap.production-highlight { background: #EEF6FF !important; border-left: 3px solid #3498db; }
+  .item-wrap.production-highlight .num { color: #2471a3 !important; }
   .num { font-size: 11px; font-weight: 600; color: #aaa; margin-right: 5px; }
   .item-cell {
     display: flex; align-items: center; justify-content: center;
@@ -1032,9 +1034,11 @@
     document.querySelectorAll('.item-wrap').forEach(wrap => {
       const isProduction = wrap.dataset.production === 'true';
 
+      wrap.classList.remove('production-highlight');
+
       if(val === 'general') {
-        // Show all approval questions (hide nothing)
         delete wrap.dataset.hiddenByPurpose;
+        if(isProduction) wrap.classList.add('production-highlight');
       } else if(val === 'approval') {
         // Hide production-only items
         if(isProduction) wrap.dataset.hiddenByPurpose = 'true';
