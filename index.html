@@ -959,15 +959,22 @@
     updateSummary();
   }
 
+  function isVisible(cb) {
+    const cell = cb.closest('.item-cell');
+    const wrap = cb.closest('.item-wrap');
+    const sec  = cb.closest('.section');
+    if(cb.disabled) return false;
+    if(cell && cell.style.display === 'none') return false;
+    if(wrap && wrap.style.display === 'none') return false;
+    if(sec  && sec.style.display  === 'none') return false;
+    return true;
+  }
+
   function upd() {
     const all = document.querySelectorAll('.item-cell input[type=checkbox]');
     let total = 0, checked = 0;
     all.forEach(cb => {
-      const cell = cb.closest('.item-cell');
-      const wrap = cb.closest('.item-wrap');
-      if(cell && cell.style.display === 'none') return;
-      if(wrap && wrap.style.display === 'none') return;
-      if(cb.disabled) return;
+      if(!isVisible(cb)) return;
       total++;
       if(cb.checked) checked++;
     });
@@ -980,14 +987,9 @@
     sections.forEach(id => {
       const sec = document.getElementById(id);
       if(!sec) return;
-      const cells = sec.querySelectorAll('.item-cell input[type=checkbox]');
       let c = 0, t = 0;
-      cells.forEach(cb => {
-        const cell = cb.closest('.item-cell');
-        const wrap = cb.closest('.item-wrap');
-        if(cell && cell.style.display === 'none') return;
-        if(wrap && wrap.style.display === 'none') return;
-        if(cb.disabled) return;
+      sec.querySelectorAll('.item-cell input[type=checkbox]').forEach(cb => {
+        if(!isVisible(cb)) return;
         t++;
         if(cb.checked) c++;
       });
