@@ -1100,7 +1100,7 @@
 
   function updateSummary() {
     const typeLabels = {'sijos-is-sonu':'Sijos iš šonų', 'karptytos':'Karpytos sijos', 'metalo':'Metalo sijos'};
-    const purposeLabels = {'approval':'Projekto tvirtinimas', 'production':'Gamyba'};
+    const purposeLabels = {'general':'Bendras', 'approval':'Projekto tvirtinimas', 'production':'Gamyba'};
     const set = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
     set('sum-project', document.getElementById('address').value || '–');
     set('sum-designer', document.getElementById('designer').value || '–');
