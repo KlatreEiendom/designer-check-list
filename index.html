@@ -104,9 +104,11 @@
   .item:hover { background: #faf9f6; }
   .item-text { font-size: 13px; color: #222; line-height: 1.45; flex: 1; }
   .item-wrap.production-missing { background: #fff5f5 !important; border-left: 3px solid #e74c3c; }
+  .item-wrap.production-missing .item { background: #fff5f5 !important; }
   .item-wrap.production-missing .item-text { color: #c0392b !important; }
   .item-wrap.production-missing .num { color: #e74c3c !important; }
   .item-wrap.production-highlight { background: #EEF6FF !important; border-left: 3px solid #3498db; }
+  .item-wrap.production-highlight .item { background: #EEF6FF !important; }
   .item-wrap.production-highlight .num { color: #2471a3 !important; }
   .num { font-size: 11px; font-weight: 600; color: #aaa; margin-right: 5px; }
   .item-cell {
@@ -1071,6 +1073,7 @@
   function highlightMissingProduction(purpose) {
     document.querySelectorAll('.item-wrap[data-production="true"]').forEach(wrap => {
       wrap.classList.remove('production-missing');
+      if(purpose !== 'general') wrap.classList.remove('production-highlight');
       if(purpose === 'production') {
         const cb = wrap.querySelector('.item-cell input[type=checkbox]');
         const isVisible = wrap.style.display !== 'none';
