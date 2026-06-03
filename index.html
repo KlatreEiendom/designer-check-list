@@ -244,6 +244,7 @@
   <!-- TYPE SELECTOR -->
   <div class="type-selector">
     <span class="type-label">Tikrinimo tikslas:</span>
+    <button class="type-btn" id="purpose-general" onclick="setPurpose('general')">Bendras</button>
     <button class="type-btn" id="purpose-approval" onclick="setPurpose('approval')">Projekto tvirtinimas</button>
     <button class="type-btn" id="purpose-production" onclick="setPurpose('production')">Gamyba</button>
   </div>
@@ -780,8 +781,8 @@
     // Restore purpose
     if(p.purpose) {
       activePurpose = p.purpose;
-      document.getElementById('purpose-approval').classList.toggle('active', p.purpose === 'approval');
-      document.getElementById('purpose-production').classList.toggle('active', p.purpose === 'production');
+      const el = document.getElementById('purpose-'+p.purpose);
+      if(el) el.classList.add('active');
       // Apply purpose filter after type is set
       setTimeout(() => {
         setPurpose(p.purpose);
@@ -1024,15 +1025,17 @@
 
   function setPurpose(val) {
     activePurpose = val;
+    document.getElementById('purpose-general').classList.toggle('active', val === 'general');
     document.getElementById('purpose-approval').classList.toggle('active', val === 'approval');
     document.getElementById('purpose-production').classList.toggle('active', val === 'production');
 
     document.querySelectorAll('.item-wrap').forEach(wrap => {
       const isProduction = wrap.dataset.production === 'true';
-      // Check if this item is already hidden by stair type (dash)
-      const hiddenByType = wrap.style.display === 'none' && activeType !== null;
 
-      if(val === 'approval') {
+      if(val === 'general') {
+        // Show all approval questions (hide nothing)
+        delete wrap.dataset.hiddenByPurpose;
+      } else if(val === 'approval') {
         // Hide production-only items
         if(isProduction) wrap.dataset.hiddenByPurpose = 'true';
         else delete wrap.dataset.hiddenByPurpose;
